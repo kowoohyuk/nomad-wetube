@@ -22,7 +22,8 @@ export const postLogin = (req, res) => {
   res.redirect(routes.home);
 };
 export const logout = (req, res) => {
-  res.render("logout", { pageTitle: "Logout" });
+  // To Do: 로그아웃 처리
+  res.redirect(routes.home);
 };
 export const users = (req, res) => {
   res.render("users", { pageTitle: "Users" });
