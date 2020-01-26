@@ -5,7 +5,6 @@ dotenv.config();
 mongoose.connect(
   process.env.MONGO_URL, 
   {
-    // 신버전의 몽구스는 Configuration을 보낼 수 있다.
     useNewUrlParser: true,
     useFindAndModify: false
   }
