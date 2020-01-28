@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 const CommentSchema = new mongoose.Schema({
   text: {
     type: String,
-    required: 'Title is required',
+    required: "Title is required"
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   video: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Video",
-  },
+    ref: "Video"
+  }
 });
 
-const model = mongoose.model.CommentSchema;
+const model = mongoose.model("Comment", CommentSchema);
 export default model;
