@@ -8,7 +8,7 @@ import {
   postEditVideo,
   deleteVideo
 } from "../controllers/videoController";
-import { uploadVideo } from "../middleWares";
+import { uploadVideo } from "../middlewares";
 
 const videoRouter = express.Router();
 
