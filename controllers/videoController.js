@@ -48,14 +48,15 @@ export const videoDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id).populate("creator");
-    console.log(video);
+    const video = await Video.findById(id)
+      .populate("creator")
+      .populate("comments");
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
-    console.log(error);
     res.redirect(routes.home);
   }
 };
+
 export const getEditVideo = async (req, res) => {
   const {
     params: { id }
@@ -67,10 +68,10 @@ export const getEditVideo = async (req, res) => {
     }
     res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
   } catch (error) {
-    console.log(error);
     res.redirect(routes.home);
   }
 };
+
 export const postEditVideo = async (req, res) => {
   const {
     params: { id },
@@ -80,10 +81,10 @@ export const postEditVideo = async (req, res) => {
     await Video.findOneAndUpdate({ _id: id }, { title, description });
     res.redirect(routes.videoDetail(id));
   } catch (error) {
-    console.log(error);
     res.redirect(routes.home);
   }
 };
+
 export const deleteVideo = async (req, res) => {
   const {
     params: { id }
@@ -99,9 +100,11 @@ export const deleteVideo = async (req, res) => {
   }
   res.redirect(routes.home);
 };
+
 export const view = async (req, res) => {
   res.render("search", { pageTitle: "Search" });
 };
+
 export const registerView = async (req, res) => {
   const {
     params: { id }
@@ -122,7 +125,7 @@ export const registerView = async (req, res) => {
 
 export const postAddComment = async (req, res) => {
   const {
-    param: { id },
+    params: { id },
     body: { comment },
     user
   } = req;
@@ -132,7 +135,7 @@ export const postAddComment = async (req, res) => {
       text: comment,
       creator: user.id
     });
-    video.comment.push(newComment.id);
+    video.comments.push(newComment.id);
     video.save();
   } catch (error) {
     res.status(400);
