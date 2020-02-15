@@ -3,11 +3,25 @@ const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById("jsVideoPreview");
 
 let streamObject;
+let videoRecorder;
+
+const handleVideoData = event => {
+  console.log(event);
+};
+
+const stopRecording = () => {
+  videoRecorder.stop();
+  recordBtn.removeEventListener("click", stopRecording);
+  recordBtn.addEventListener("click", getVideo);
+  recordBtn.textContent = "Start recording";
+};
 
 const startRecording = async () => {
-  const videoRecorder = new MediaRecorder(streamObject);
-  console.log(videoRecorder);
-  videoRecorder.start();
+  videoRecorder = new MediaRecorder(streamObject);
+  // videoRecorder.start(1000); // 1초 마다 정보 전달
+  videoRecorder.start(); // 끝날 때 정보 전달
+  videoRecorder.addEventListener("dataavailable", handleVideoData);
+  recordBtn.addEventListener("click", stopRecording);
 };
 
 const getVideo = async () => {
@@ -18,7 +32,7 @@ const getVideo = async () => {
     });
     videoPreview.srcObject = stream;
     videoPreview.muted = true;
-    videoPreview.onplay();
+    videoPreview.play();
     recordBtn.textContent = "Stop recording";
     streamObject = stream;
     startRecording();
