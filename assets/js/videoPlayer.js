@@ -120,7 +120,7 @@ function init() {
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
   fullScreenBtn.addEventListener("click", goFullScreen);
-  videoPlayer.addEventListener("canplay", setTotalTime());
+  videoPlayer.addEventListener("canplay", setTotalTime);
   videoPlayer.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleDrag);
 }
@@ -128,4 +128,3 @@ function init() {
 if (videoContainer) {
   init();
 }
-
