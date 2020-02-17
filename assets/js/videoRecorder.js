@@ -4,6 +4,18 @@ const videoPreview = document.getElementById("jsVideoPreview");
 let videoRecorder;
 
 let streamObject;
+let videoRecorder;
+
+const handleVideoData = event => {
+  console.log(event);
+};
+
+const stopRecording = () => {
+  videoRecorder.stop();
+  recordBtn.removeEventListener("click", stopRecording);
+  recordBtn.addEventListener("click", getVideo);
+  recordBtn.textContent = "Start recording";
+};
 
 const handleVideoData = event => {
   const { data: videoFile } = event;
