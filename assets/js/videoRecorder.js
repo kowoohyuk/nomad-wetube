@@ -1,21 +1,9 @@
 const recorderContainer = document.getElementById("jsRecordContainer");
 const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById("jsVideoPreview");
-let videoRecorder;
 
 let streamObject;
 let videoRecorder;
-
-const handleVideoData = event => {
-  console.log(event);
-};
-
-const stopRecording = () => {
-  videoRecorder.stop();
-  recordBtn.removeEventListener("click", stopRecording);
-  recordBtn.addEventListener("click", getVideo);
-  recordBtn.textContent = "Start recording";
-};
 
 const handleVideoData = event => {
   const { data: videoFile } = event;
@@ -30,11 +18,11 @@ const stopRecording = () => {
   videoRecorder.stop();
   recordBtn.removeEventListener("click", stopRecording);
   recordBtn.addEventListener("click", getVideo);
-  recordBtn.innerHTML = "Start recording";
+  recordBtn.textContent = "Start recording";
 };
 
 const startRecording = () => {
-  streamObject = new MediaRecorder(streamObject);
+  videoRecorder = new MediaRecorder(streamObject);
   videoRecorder.start();
   videoRecorder.addEventListener("dataavailable", handleVideoData);
   recordBtn.addEventListener("click", stopRecording);
@@ -49,11 +37,12 @@ const getVideo = async () => {
     videoPreview.srcObject = stream;
     videoPreview.muted = true;
     videoPreview.play();
-    recordBtn.textContent = "Stop recording";
+    recordBtn.innerHTML = "Stop recording";
     streamObject = stream;
     startRecording();
   } catch (error) {
-    recordBtn.textContent = "Can not record";
+    console.log(error);
+    recordBtn.innerHTML = "☹️ Cant record";
   } finally {
     recordBtn.removeEventListener("click", getVideo);
   }

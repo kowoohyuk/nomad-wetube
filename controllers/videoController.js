@@ -11,6 +11,7 @@ export const home = async (req, res) => {
     res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
+
 export const search = async (req, res) => {
   const {
     query: { term: searchingBy }
@@ -25,16 +26,18 @@ export const search = async (req, res) => {
   }
   res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
+
 export const getUpload = (req, res) => {
   res.render("upload", { pageTitle: "Upload" });
 };
+
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }
+    file: { location }
   } = req;
   const newVideo = await Video.create({
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id
@@ -43,6 +46,7 @@ export const postUpload = async (req, res) => {
   req.user.save();
   res.redirect(routes.videoDetail(newVideo.id));
 };
+
 export const videoDetail = async (req, res) => {
   const {
     params: { id }
