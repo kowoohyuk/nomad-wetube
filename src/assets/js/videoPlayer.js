@@ -91,6 +91,7 @@ function getCurrentTime() {
 }
 
 function setTotalTime() {
+  console.log(videoPlayer.duration);
   totalTime.textContent = formatDate(videoPlayer.duration);
   setInterval(getCurrentTime, 1000);
 }
